@@ -1,0 +1,29 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: hello-app
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://github.com/souhir-Naassaoui/java.git
+  ref:
+    branch: dev
+  ignore: |
+    # exclude all
+    /*
+    # include charts directory
+    !/hello/
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: hello-app
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./rel
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: hello-app
+  targetNamespace: app
