@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dockerized App</title>
+</head>
+<body>
+    <h1>Message from Dockerized App</h1>
+    <button onclick="fetchMessage()">Get Message</button>
+    <p id="message"></p>
+    <script>
+        async function fetchMessage() {
+            const response = await fetch('/hello'); // Endpoint backend
+            const text = await response.text();
+            document.getElementById('message').innerText = text;
+        }
+    </script>
+</body>
+</html>
